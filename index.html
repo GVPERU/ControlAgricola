@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Técnico Agrícola de Control Predictivo</title>
+  <style>
+    :root{
+      --olive:#6E8B2E;
+      --olive-dark:#2F4A13;
+      --green-light:#B7E37C;
+      --traffic-green:#00B050;
+      --green-soft:#E7F8D8;
+      --gray:#5B6470;
+      --gray-light:#EEF1F3;
+      --gray-border:#CBD2D9;
+      --black:#111827;
+      --white:#FFFFFF;
+      --yellow:#FFD400;
+      --red:#FF2800;
+      --bluegray:#2F3A45;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:"Inter","Segoe UI",Arial,sans-serif;
+      color:var(--black);
+      background:linear-gradient(180deg,#ffffff 0%,#f7f8f5 100%);
+      line-height:1.45;
+    }
+    header{
+      background:var(--olive-dark);
+      color:white;
+      padding:42px 7vw 36px;
+      border-bottom:8px solid var(--green-light);
+    }
+    header .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:12px;
+      color:var(--green-light);
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    header h1{
+      margin:0;
+      max-width:1050px;
+      font-size:42px;
+      line-height:1.05;
+      font-weight:800;
+    }
+    header p{
+      max-width:920px;
+      font-size:18px;
+      color:#eef4ea;
+      margin:18px 0 0;
+    }
+    .layout{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:28px;
+      padding:28px 7vw 60px;
+    }
+    nav{
+      position:sticky;
+      top:20px;
+      align-self:start;
+      background:white;
+      border:1px solid var(--gray-border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 8px 22px rgba(17,24,39,.06);
+    }
+    nav h3{
+      margin:0 0 12px;
+      color:var(--olive-dark);
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    nav a{
+      display:block;
+      color:var(--black);
+      text-decoration:none;
+      padding:9px 10px;
+      border-radius:10px;
+      font-size:14px;
+    }
+    nav a:hover{
+      background:var(--green-soft);
+      color:var(--olive-dark);
+      font-weight:700;
+    }
+    section{
+      background:white;
+      border:1px solid var(--gray-border);
+      border-radius:22px;
+      padding:28px;
+      margin-bottom:24px;
+      box-shadow:0 10px 26px rgba(17,24,39,.05);
+    }
+    h2{
+      margin:0 0 14px;
+      color:var(--olive-dark);
+      font-size:28px;
+      line-height:1.15;
+    }
+    h3{
+      color:var(--olive-dark);
+      margin-top:22px;
+      margin-bottom:10px;
+      font-size:19px;
+    }
+    .lead{
+      font-size:17px;
+      color:#202733;
+      max-width:950px;
+    }
+    .highlight{
+      background:var(--green-soft);
+      border-left:6px solid var(--olive);
+      padding:16px 18px;
+      border-radius:14px;
+      font-weight:600;
+      margin:18px 0;
+    }
+    .grid{display:grid;gap:16px;}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+    .card{
+      background:var(--gray-light);
+      border:1px solid #e2e5e8;
+      border-radius:18px;
+      padding:18px;
+      min-height:120px;
+    }
+    .card h4{
+      margin:0 0 8px;
+      color:var(--olive-dark);
+      font-size:16px;
+    }
+    .card p,.card li{font-size:14px;color:#1f2937;}
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--green-light);
+      color:var(--olive-dark);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .tree{display:grid;gap:14px;margin-top:18px;}
+    .tree-node{
+      border:1px solid var(--gray-border);
+      border-radius:18px;
+      padding:18px;
+      background:#fff;
+    }
+    .tree-node.primary{
+      background:var(--olive-dark);
+      color:white;
+      border-color:var(--olive-dark);
+    }
+    .tree-node.primary h3{color:white;margin:0 0 8px;}
+    .tree-node.primary p{color:#edf4ea;}
+    .tree-branch{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+    ul.clean{margin:8px 0 0;padding-left:18px;}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:14px;
+      font-size:14px;
+      overflow:hidden;
+      border-radius:14px;
+    }
+    th{
+      background:var(--olive-dark);
+      color:white;
+      text-align:left;
+      padding:11px;
+      font-weight:700;
+    }
+    td{
+      border-bottom:1px solid var(--gray-border);
+      padding:11px;
+      vertical-align:top;
+    }
+    tr:nth-child(even) td{background:#fafafa;}
+    .status{
+      display:inline-block;
+      padding:5px 9px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+    }
+    .green{
+      background:var(--traffic-green);
+      color:white;
+      box-shadow:0 0 0 3px rgba(0,176,80,.18);
+    }
+    .yellow{
+      background:var(--yellow);
+      color:#1f2937;
+      box-shadow:0 0 0 3px rgba(255,212,0,.24);
+    }
+    .red{
+      background:var(--red);
+      color:white;
+      box-shadow:0 0 0 3px rgba(255,40,0,.22);
+    }
+    .closed{
+      background:var(--bluegray);
+      color:white;
+      border:1px solid #111827;
+      box-shadow:inset 0 -2px 0 rgba(255,255,255,.12);
+    }
+    .status-card{
+      position:relative;
+      overflow:hidden;
+    }
+    .status-card::after{
+      content:"";
+      position:absolute;
+      right:-28px;
+      top:-28px;
+      width:86px;
+      height:86px;
+      border-radius:50%;
+      opacity:.22;
+      background:var(--green-light);
+    }
+    .status-card.critical::after{background:var(--red);}
+    .status-card.warning::after{background:var(--yellow);}
+    .status-card.closed-state::after{background:var(--bluegray);}
+    .state-code{
+      font-size:11px;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      color:var(--gray);
+      font-weight:800;
+      margin-bottom:8px;
+    }
+    .interactive{
+      background:linear-gradient(180deg,#ffffff 0%,#f0f6ed 100%);
+      border:2px solid var(--green-light);
+    }
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+    label{
+      display:block;
+      font-weight:700;
+      color:var(--olive-dark);
+      font-size:13px;
+      margin-bottom:6px;
+    }
+    input,select{
+      width:100%;
+      border:1px solid var(--gray-border);
+      border-radius:12px;
+      padding:11px;
+      font-size:14px;
+      background:white;
+      color:var(--black);
+    }
+    button{
+      border:0;
+      background:var(--olive-dark);
+      color:white;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      cursor:pointer;
+      margin-top:18px;
+    }
+    button:hover{background:var(--olive);}
+    #decisionBox{
+      margin-top:20px;
+      border:1px solid var(--gray-border);
+      background:white;
+      border-radius:18px;
+      padding:18px;
+      display:none;
+    }
+    .result-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .small-note{
+      color:var(--gray);
+      font-size:13px;
+      margin-top:10px;
+    }
+    .footer{
+      color:var(--gray);
+      font-size:13px;
+      text-align:center;
+      padding:18px;
+    }
+
+
+    .roadmap-note{
+      background:#F7FBEF;
+      border:1px solid var(--green-light);
+      border-left:7px solid var(--olive);
+      padding:16px 18px;
+      border-radius:16px;
+      margin:18px 0;
+      font-size:14px;
+    }
+    .phase-meta{
+      display:block;
+      margin-top:8px;
+      padding-top:8px;
+      border-top:1px dashed rgba(47,74,19,.35);
+      color:#2F4A13;
+      font-size:12px;
+      font-weight:700;
+    }
+    .measure-tag{
+      display:inline-block;
+      margin-top:8px;
+      padding:4px 7px;
+      border-radius:8px;
+      background:#ffffff;
+      border:1px solid var(--green-light);
+      color:var(--olive-dark);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .roadmap-wrap{
+      margin-top:20px;
+      overflow-x:auto;
+      padding-bottom:8px;
+    }
+    .roadmap{
+      min-width:1180px;
+      display:grid;
+      grid-template-columns:150px repeat(7,1fr) 180px;
+      border:1px solid var(--gray-border);
+      border-radius:20px;
+      overflow:hidden;
+      background:white;
+    }
+    .roadmap-cell{
+      padding:14px;
+      border-right:1px solid var(--gray-border);
+      border-bottom:1px solid var(--gray-border);
+      min-height:100px;
+      font-size:13px;
+    }
+    .roadmap-cell:last-child{border-right:0;}
+    .roadmap-label{
+      background:var(--olive-dark);
+      color:white;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+    }
+    .phase{
+      background:var(--green-soft);
+    }
+    .phase strong{
+      color:var(--olive-dark);
+      display:block;
+      font-size:15px;
+      margin-bottom:6px;
+    }
+    .sanitary{
+      background:#fffaf0;
+    }
+    .sanitary strong{
+      color:#725B00;
+      display:block;
+      margin-bottom:6px;
+    }
+    .climate{
+      background:#eef2f5;
+    }
+    .climate strong{
+      color:#2f3a45;
+      display:block;
+      margin-bottom:6px;
+    }
+    .decision{
+      background:#f8fafc;
+    }
+    .decision strong{
+      color:var(--olive-dark);
+      display:block;
+      margin-bottom:6px;
+    }
+    .objective-cell{
+      background:var(--olive-dark);
+      color:white;
+      font-weight:700;
+    }
+    .objective-cell strong{
+      color:var(--green-light);
+      display:block;
+      font-size:16px;
+      margin-bottom:8px;
+    }
+    .mini-list{
+      margin:0;
+      padding-left:16px;
+    }
+    .mini-list li{
+      margin-bottom:4px;
+    }
+
+    @media(max-width:1000px){
+      .layout{grid-template-columns:1fr;padding:20px;}
+      nav{position:relative;top:auto;}
+      .grid-2,.grid-3,.grid-4,.tree-branch,.form-grid{grid-template-columns:1fr;}
+      header{padding:34px 24px;}
+      header h1{font-size:32px;}
+    }
+    @media print{
+      nav,button{display:none;}
+      .layout{display:block;padding:0;}
+      section{box-shadow:none;break-inside:avoid;}
+      body{background:white;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Manual para Gerencia Agrícola</div>
+    <h1>Sistema Técnico Agrícola de Control Predictivo</h1>
+    <p>Framework para anticipar desviaciones, preservar flexibilidad de corrección y conectar cada variable agrícola con el resultado productivo y comercial esperado.</p>
+  </header>
+
+  <div class="layout">
+    <nav>
+      <h3>Contenido</h3>
+      <a href="#proposito">1. Propósito</a>
+      <a href="#alcance">2. Alcance técnico</a>
+      <a href="#arbol">3. Árbol causal</a>
+      <a href="#roadmap">4. Roadmap fenológico</a>
+      <a href="#etapas">5. Etapas agrícolas</a>
+      <a href="#sanidad">6. Sanidad y condición</a>
+      <a href="#interactivo">7. Motor interactivo</a>
+      <a href="#cerrado">8. Estado cerrado</a>
+      <a href="#gobernanza">9. Gobernanza</a>
+      <a href="#raci">10. Matriz RACI</a>
+      <a href="#output">11. Reporte esperado</a>
+    </nav>
+
+    <main>
+      <section id="proposito">
+        <span class="pill">North Star</span>
+        <h2>1. Propósito del sistema</h2>
+        <p class="lead">El propósito central es maximizar la anticipación y la flexibilidad de corrección de rumbo desde la poda hasta la última baya cosechada.</p>
+        <div class="highlight">
+          El sistema no busca registrar más datos. Busca convertir cada medición técnica agrícola en una lectura anticipada del resultado futuro y en una decisión concreta.
+        </div>
+        <div class="grid grid-4">
+          <div class="card"><h4>Anticipar</h4><p>Detectar señales tempranas antes de que el resultado quede definido.</p></div>
+          <div class="card"><h4>Interpretar</h4><p>Traducir cada variable en impacto probable sobre kilos, calibre, sanidad o condición.</p></div>
+          <div class="card"><h4>Corregir</h4><p>Activar decisiones mientras aún existe ventana agronómica de intervención.</p></div>
+          <div class="card"><h4>Actualizar</h4><p>Cuando una etapa se cierra, trasladar su efecto al forecast y a las variables siguientes.</p></div>
+        </div>
+      </section>
+
+      <section id="alcance">
+        <span class="pill">Scope</span>
+        <h2>2. Alcance técnico agrícola</h2>
+        <p>Este sistema corresponde a la Gerencia Agrícola. Controla variables técnicas del cultivo, no variables operativas de cosecha, packing, frío o logística.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>Incluye</h4>
+            <ul class="clean">
+              <li>Poda, brotación, vigor y arquitectura de planta.</li>
+              <li>Yemas, floración, cuaja, carga y desarrollo de fruto.</li>
+              <li>Nutrición, riego, clima y sanidad.</li>
+              <li>Madurez, condición de fruta en planta y oportunidad técnica de cosecha.</li>
+              <li>Impacto técnico sobre kilos, calibre, exportabilidad y condición.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Excluye</h4>
+            <ul class="clean">
+              <li>Disponibilidad de mano de obra.</li>
+              <li>Productividad de cosecha.</li>
+              <li>Transporte interno, frío, packing y materiales.</li>
+              <li>Capacidad operativa y logística.</li>
+              <li>KPIs propios del sistema de control operativo.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight">
+          Este sistema no controla la operación de cosecha; controla la condición técnica agrícola que determina si la fruta llega a cosecha con el volumen, calibre, sanidad y condición esperados.
+        </div>
+      </section>
+
+      <section id="arbol">
+        <span class="pill">Causal Tree</span>
+        <h2>3. Árbol causal del resultado</h2>
+        <p>El modelo parte del resultado final esperado —<strong>Kilos, Calidad y Costo</strong>— y trabaja hacia atrás hasta identificar las variables agrícolas que explican ese resultado. Todo el resto del sistema es un despliegue causal desde el objetivo final hasta la poda.</p>
+        <div class="tree">
+          <div class="tree-node primary">
+            <h3>Resultado final esperado</h3>
+            <p><strong>Kilos · Calidad · Costo</strong></p><p>La lógica del sistema parte desde estos tres resultados y despliega hacia atrás las variables técnicas que los explican hasta llegar a la poda.</p>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">
+              <h3>Kilos</h3>
+              <ul class="clean">
+                <li>Kilos producidos.</li>
+                <li>Kilos exportables.</li>
+                <li>Número de frutos por planta.</li>
+                <li>Peso promedio de fruto.</li>
+                <li>% descarte agrícola.</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Calidad</h3>
+              <ul class="clean">
+                <li>Jumbo %.</li>
+                <li>Calidad comercializable.</li>
+                <li>Calibre.</li>
+                <li>Brix, firmeza, bloom y condición.</li>
+                <li>Sanidad y defectos de campo.</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Costo</h3>
+              <ul class="clean">
+                <li>Costo agrícola por kilo.</li>
+                <li>Eficiencia técnica de manejo.</li>
+                <li>Uso oportuno de recursos.</li>
+                <li>Correcciones tempranas vs. tardías.</li>
+                <li>Impacto de errores técnicos sobre descarte y productividad.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">
+              <h3>Número de frutos</h3>
+              <ul class="clean">
+                <li>Calidad de poda</li><li>Brotes útiles</li><li>Yemas fértiles</li><li>Flores por yema</li><li>Cuaja y aborto floral/frutal</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Vigor y soporte</h3>
+              <ul class="clean">
+                <li>Longitud de brote</li><li>Diámetro de brote</li><li>Área foliar estimada</li><li>Estado radicular</li><li>Equilibrio vegetativo/productivo</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Riesgo agrícola</h3>
+              <ul class="clean">
+                <li>Presión sanitaria</li><li>Clima extremo</li><li>Estrés hídrico</li><li>Desequilibrio nutricional</li><li>Madurez desuniforme</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="roadmap">
+        <span class="pill">Phenology Roadmap</span>
+        <h2>4. Roadmap fenológico integrado</h2>
+        <p>El roadmap ordena la campaña desde poda hasta última baya cosechada. En cada fase se conectan las variables fenológicas, las influencias sanitarias, el clima monitoreado, la frecuencia de medición y las decisiones técnicas que terminan impactando kilos, calidad y costo.</p>
+
+        <div class="roadmap-note">
+          <strong>Nota de uso:</strong> este roadmap es referencial y funciona como ejemplo estructural. Cada cliente, gerente agrícola o equipo técnico debe afinar períodos de acción, períodos de medición, frecuencia de medición, rangos objetivo y umbrales según cultivo, variedad, zona, edad de planta, sistema productivo y objetivo comercial.
+        </div>
+
+        <div class="highlight">
+          La lectura correcta no es lineal. Cada fase cierra supuestos que alimentan la siguiente: poda condiciona brotación; brotación condiciona yemas; yemas condicionan floración; floración condiciona cuaja; cuaja condiciona carga; carga condiciona kilos, calidad y costo.
+        </div>
+
+        <div class="roadmap-wrap">
+          <div class="roadmap">
+            <div class="roadmap-cell roadmap-label">Dimensión</div>
+            <div class="roadmap-cell phase"><strong>Poda</strong>Arquitectura inicial<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Brotación</strong>Brotes útiles y vigor<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Yemas</strong>Potencial floral<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Floración</strong>Intensidad y concentración<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Cuaja</strong>Carga inicial<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Desarrollo de fruto</strong>Calibre y condición<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell phase"><strong>Madurez técnica</strong>Última baya cosechada<span class="phase-meta">Periodo de acción: definir<br/>Periodo de medición: definir</span></div>
+            <div class="roadmap-cell objective-cell"><strong>Objetivo final</strong>Kilos · Calidad · Costo</div>
+
+            <div class="roadmap-cell roadmap-label">Variable agrícola crítica</div>
+            <div class="roadmap-cell">Fecha, intensidad y calidad de poda.</div>
+            <div class="roadmap-cell">Número de brotes, largo, diámetro, vigor y uniformidad.</div>
+            <div class="roadmap-cell">Yemas por brote, yemas por planta y fertilidad potencial.</div>
+            <div class="roadmap-cell">Flores por planta, duración, pico y dispersión.</div>
+            <div class="roadmap-cell">% cuaja, aborto floral/frutal y carga real.</div>
+            <div class="roadmap-cell">Crecimiento de fruto, relación hoja/fruto, firmeza, calibre.</div>
+            <div class="roadmap-cell">Color, brix, firmeza, bloom, defectos y oportunidad técnica.</div>
+            <div class="roadmap-cell objective-cell">Forecast técnico actualizado.</div>
+
+            <div class="roadmap-cell roadmap-label">Frecuencia de medición</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Según avance de poda y validación de calidad de ejecución.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Medición repetida durante ventana activa de brotación.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Frecuencia ajustada a velocidad de diferenciación y riesgo.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Mayor frecuencia durante inicio, pico y cierre de floración.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Medición reforzada hasta estabilizar carga real.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Seguimiento periódico de calibre, firmeza, sanidad y condición.</div>
+            <div class="roadmap-cell"><span class="measure-tag">Definir por cliente</span><br/>Frecuencia alta durante ventana de cosecha técnica.</div>
+            <div class="roadmap-cell objective-cell">Frecuencia integrada al reporte predictivo.</div>
+
+            <div class="roadmap-cell roadmap-label">Influencia sanitaria</div>
+            <div class="roadmap-cell sanitary"><strong>Base sanitaria</strong>Estado de madera, heridas de poda, fuentes de inóculo.</div>
+            <div class="roadmap-cell sanitary"><strong>Brotes tiernos</strong>Mayor sensibilidad de tejido joven; presión inicial de plagas/enfermedades.</div>
+            <div class="roadmap-cell sanitary"><strong>Vigor y tejido</strong>Estrés o daño reduce capacidad de formar y sostener yemas.</div>
+            <div class="roadmap-cell sanitary"><strong>Flor vulnerable</strong>Riesgo de daño sobre flor, polinización, cuaja y aborto.</div>
+            <div class="roadmap-cell sanitary"><strong>Fruto joven</strong>Daño temprano afecta descarte, cicatrices, pudrición y potencial exportable.</div>
+            <div class="roadmap-cell sanitary"><strong>Fruta en expansión</strong>Presión sobre firmeza, bloom, condición y vida postcosecha.</div>
+            <div class="roadmap-cell sanitary"><strong>Fruta lista</strong>Riesgo de pudrición, sobremadurez, defectos y pérdida de condición.</div>
+            <div class="roadmap-cell objective-cell">Exportabilidad y calidad comercializable.</div>
+
+            <div class="roadmap-cell roadmap-label">Clima monitoreado transversal</div>
+            <div class="roadmap-cell climate"><strong>Temperatura / estrés</strong>Impacta oportunidad y respuesta postpoda.</div>
+            <div class="roadmap-cell climate"><strong>Temperatura, radiación, HR</strong>Impacta brotación, vigor y tasa de crecimiento.</div>
+            <div class="roadmap-cell climate"><strong>Radiación, frío, estrés hídrico</strong>Impacta acumulación y calidad de yemas.</div>
+            <div class="roadmap-cell climate"><strong>Temperatura, viento, HR</strong>Impacta floración, aborto y sanidad.</div>
+            <div class="roadmap-cell climate"><strong>Calor, HR, agua</strong>Impacta cuaja, aborto y carga real.</div>
+            <div class="roadmap-cell climate"><strong>Calor, radiación, VPD, agua</strong>Impacta calibre, firmeza, deshidratación y golpe de sol.</div>
+            <div class="roadmap-cell climate"><strong>Temperatura, HR, lluvia/garúa</strong>Impacta condición, sanidad, madurez y oportunidad técnica.</div>
+            <div class="roadmap-cell objective-cell">Riesgo climático incorporado al forecast.</div>
+
+            <div class="roadmap-cell roadmap-label">Decisión técnica</div>
+            <div class="roadmap-cell decision"><strong>Definir potencial</strong>Ajustar estructura y carga objetivo inicial.</div>
+            <div class="roadmap-cell decision"><strong>Regular vigor</strong>Ajustar riego, nutrición, brotes y equilibrio.</div>
+            <div class="roadmap-cell decision"><strong>Confirmar potencial</strong>Actualizar forecast de floración y carga.</div>
+            <div class="roadmap-cell decision"><strong>Proyectar carga</strong>Determinar si floración valida o recalcula el plan.</div>
+            <div class="roadmap-cell decision"><strong>Regular carga</strong>Confirmar kilos potenciales y riesgo de calibre.</div>
+            <div class="roadmap-cell decision"><strong>Proteger calidad</strong>Gestionar calibre, firmeza, sanidad y condición.</div>
+            <div class="roadmap-cell decision"><strong>Cosecha técnica</strong>Definir momento según condición y objetivo comercial.</div>
+            <div class="roadmap-cell objective-cell">
+              <ul class="mini-list">
+                <li>Costo agrícola por kg.</li>
+                <li>Jumbo %.</li>
+                <li>Calidad comercializable.</li>
+                <li>Brix / firmeza / condición.</li>
+                <li>Kilos producidos y exportables.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>Objetivo final del roadmap</h3>
+        <div class="grid grid-3">
+          <div class="card">
+            <h4>Kilos</h4>
+            <p>Confirmar o recalcular kilos producidos y exportables según brotación, yemas, floración, cuaja, carga, peso de fruto y descarte agrícola.</p>
+          </div>
+          <div class="card">
+            <h4>Calidad</h4>
+            <p>Para arándano: maximizar Jumbo %, calidad comercializable, brix, firmeza, condición, bloom, sanidad y vida postcosecha.</p>
+          </div>
+          <div class="card">
+            <h4>Costo</h4>
+            <p>Controlar decisiones técnicas que afectan eficiencia agrícola, productividad, oportunidad de corrección y costo por kilo producido.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="etapas">
+        <span class="pill">Campaign Timeline</span>
+        <h2>5. Etapas agrícolas: desde poda hasta última baya cosechada</h2>
+        <p class="small-note">Los períodos y frecuencias deben ser definidos por el gerente agrícola del cliente. La tabla describe la lógica técnica, no un calendario fijo.</p>
+        <table>
+          <thead><tr><th>Etapa</th><th>Variable crítica</th><th>Pregunta de control</th><th>Impacto hacia adelante</th></tr></thead>
+          <tbody>
+            <tr><td>Poda</td><td>Oportunidad, intensidad y calidad de poda</td><td>¿La planta quedó estructurada para el potencial productivo objetivo?</td><td>Brotación, yemas, distribución de carga.</td></tr>
+            <tr><td>Brotación</td><td>Número, vigor y uniformidad de brotes</td><td>¿El número y calidad de brotes soporta el objetivo de fruta?</td><td>Yemas, flores, relación hoja/fruto, calibre.</td></tr>
+            <tr><td>Acumulación de yemas</td><td>Yemas por brote y por planta</td><td>¿El potencial floral confirma o modifica el plan?</td><td>Floración, carga potencial, forecast productivo.</td></tr>
+            <tr><td>Floración</td><td>Intensidad, duración y concentración</td><td>¿La floración confirma carga y ventana esperada?</td><td>Cuaja, concentración de cosecha, calibre.</td></tr>
+            <tr><td>Cuaja</td><td>% cuaja y aborto</td><td>¿La carga real se alinea al objetivo?</td><td>Kilos, calibre, necesidad de regulación.</td></tr>
+            <tr><td>Desarrollo de fruto</td><td>Crecimiento, calibre, firmeza y sanidad</td><td>¿El fruto está evolucionando hacia el estándar esperado?</td><td>Exportabilidad, condición y cosecha.</td></tr>
+            <tr><td>Madurez y cosecha técnica</td><td>Color, firmeza, brix, bloom y defectos de campo</td><td>¿La fruta está lista para cosecharse técnicamente?</td><td>Calidad final, descarte, condición y valor comercial.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="sanidad">
+        <span class="pill">Technical Risk</span>
+        <h2>6. Sanidad y condición agrícola</h2>
+        <p>La sanidad debe estar integrada en el árbol causal, no tratada como un bloque separado. Afecta vigor, cuaja, desarrollo de fruta, exportabilidad, condición y vida postcosecha.</p>
+        <div class="grid grid-3">
+          <div class="card"><h4>Presión sanitaria</h4><ul class="clean"><li>Plagas y enfermedades.</li><li>Incidencia y severidad.</li><li>Velocidad de expansión.</li><li>Riesgo por clima.</li><li>Efectividad de control.</li></ul></div>
+          <div class="card"><h4>Condición de fruta en planta</h4><ul class="clean"><li>Firmeza.</li><li>Bloom.</li><li>Deshidratación.</li><li>Daño por sol.</li><li>Pudrición, cicatrices y partidura.</li></ul></div>
+          <div class="card"><h4>Madurez técnica</h4><ul class="clean"><li>Color.</li><li>Brix.</li><li>Acidez si aplica.</li><li>Uniformidad de madurez.</li><li>Oportunidad técnica de cosecha.</li></ul></div>
+        </div>
+        <h3>Variables sanitarias mínimas</h3>
+        <table>
+          <thead><tr><th>Variable</th><th>Cómo se interpreta</th><th>Decisión esperada</th></tr></thead>
+          <tbody>
+            <tr><td>Incidencia</td><td>Qué proporción del lote presenta el problema.</td><td>Determina amplitud de intervención.</td></tr>
+            <tr><td>Severidad</td><td>Qué tan intenso es el daño en plantas o fruta afectada.</td><td>Determina urgencia y criticidad.</td></tr>
+            <tr><td>Velocidad de expansión</td><td>Si el problema está estable, creciendo o acelerando.</td><td>Define si se escala la alerta.</td></tr>
+            <tr><td>Riesgo climático</td><td>Condiciones que favorecen presión sanitaria.</td><td>Activa prevención antes del daño visible.</td></tr>
+            <tr><td>Carencias / residuos</td><td>Compatibilidad de aplicaciones con cosecha.</td><td>Evita afectar cosecha técnica y exportabilidad.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="interactivo" class="interactive">
+        <span class="pill">Decision Engine</span>
+        <h2>7. Motor interactivo de decisión</h2>
+        <p>Ejemplo funcional: el agrónomo ingresa una variable, valor real y etapa. El sistema clasifica el estado, interpreta el efecto y recomienda mantener, corregir, mitigar, monitorear o recalcular forecast.</p>
+        <div class="form-grid">
+          <div><label for="variable">Variable medida</label><select id="variable"><option value="brotes">Número de brotes por planta</option><option value="yemas">Yemas por brote</option><option value="floracion">Floración acumulada (%)</option><option value="cuaja">Cuaja (%)</option><option value="calibre">Calibre promedio estimado (mm)</option><option value="firmeza">Firmeza estimada</option><option value="sanidad">Incidencia sanitaria (%)</option></select></div>
+          <div><label for="value">Valor real</label><input id="value" type="number" placeholder="Ingresar valor" /></div>
+          <div><label for="stage">Etapa</label><select id="stage"><option>Poda</option><option>Brotación</option><option>Yemas</option><option>Floración</option><option>Cuaja</option><option>Desarrollo de fruto</option><option>Madurez / cosecha técnica</option></select></div>
+        </div>
+        <button onclick="evaluateDecision()">Evaluar variable</button>
+        <div id="decisionBox">
+          <div class="result-title"><span id="statusBadge" class="status green">Verde</span><h3 id="decisionTitle" style="margin:0;">Resultado</h3></div>
+          <p><strong>Interpretación:</strong> <span id="interpretation"></span></p>
+          <p><strong>Impacto probable:</strong> <span id="impact"></span></p>
+          <p><strong>Acción recomendada:</strong> <span id="action"></span></p>
+          <p><strong>Ventana de corrección:</strong> <span id="window"></span></p>
+          <p class="small-note">Nota: los rangos son referenciales. La Gerencia Agrícola debe calibrarlos por variedad, edad, lote y objetivo comercial.</p>
+        </div>
+      </section>
+
+      <section id="cerrado">
+        <span class="pill">Closed Loop</span>
+        <h2>8. Lógica del estado cerrado</h2>
+        <p>“Cerrado” no significa que el dato se ignora. Significa que el evento crítico ya ocurrió, su ventana de intervención directa terminó y su efecto debe propagarse hacia adelante.</p>
+
+        <h3>Estados operativos del sistema</h3>
+        <div class="grid grid-4">
+          <div class="card status-card">
+            <div class="state-code">Dentro de rango</div>
+            <h4>Verde</h4>
+            <p>La variable está dentro del rango técnico esperado. Confirma avance normal.</p>
+            <span class="status green">Dentro</span>
+          </div>
+          <div class="card status-card warning">
+            <div class="state-code">Desviación media</div>
+            <h4>Amarillo</h4>
+            <p>La variable muestra una desviación relevante. Puede ser corregible, mitigable o simplemente monitoreable según etapa y causa.</p>
+            <span class="status yellow">Desviación media</span>
+          </div>
+          <div class="card status-card critical">
+            <div class="state-code">Desviación crítica</div>
+            <h4>Rojo</h4>
+            <p>La variable compromete el resultado esperado o eleva materialmente el riesgo. Requiere decisión inmediata.</p>
+            <span class="status red">Crítico</span>
+          </div>
+          <div class="card status-card closed-state">
+            <div class="state-code">Evento cerrado</div>
+            <h4>Validado / Recalculado</h4>
+            <p>La ventana directa terminó. El sistema debe validar el forecast o recalcularlo hacia adelante.</p>
+            <span class="status closed">Cierre</span>
+          </div>
+        </div>
+        <div class="grid grid-2">
+          <div class="card status-card closed-state">
+            <div class="state-code">Cierre / Validación</div>
+            <h4>Cerrado validado</h4>
+            <p>El evento crítico ocurrió dentro del rango esperado y confirma la hipótesis técnica que sostenía el forecast.</p>
+            <span class="status closed">Forecast validado</span>
+          </div>
+          <div class="card status-card closed-state">
+            <div class="state-code">Cierre / Recalculo</div>
+            <h4>Cerrado recalculado</h4>
+            <p>El evento crítico ocurrió fuera del supuesto esperado y obliga a recalcular volumen, calibre, calidad, costo o riesgo.</p>
+            <span class="status closed">Forecast recalculado</span>
+          </div>
+        </div>
+        <h3>Preguntas obligatorias al cerrar una variable</h3>
+        <table>
+          <thead><tr><th>Pregunta</th><th>Decisión que genera</th></tr></thead>
+          <tbody>
+            <tr><td>¿Ocurrió el evento crítico?</td><td>Confirma que la etapa debe cerrarse.</td></tr>
+            <tr><td>¿Ocurrió en el momento esperado?</td><td>Ajusta calendario técnico y forecast.</td></tr>
+            <tr><td>¿Ocurrió con la intensidad esperada?</td><td>Confirma o modifica kilos, calibre o condición.</td></tr>
+            <tr><td>¿Qué variable siguiente queda afectada?</td><td>Traslada el efecto en la cadena causal.</td></tr>
+            <tr><td>¿Existe acción indirecta posterior?</td><td>Define mitigación, monitoreo reforzado o recalculo del forecast.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="gobernanza">
+        <span class="pill">Operating Model</span>
+        <h2>9. Gobernanza del sistema</h2>
+        <p>Para que el sistema funcione, cada variable debe tener dueño, método, frecuencia, umbral y acción asociada.</p>
+        <table>
+          <thead><tr><th>Elemento</th><th>Definición requerida</th></tr></thead>
+          <tbody>
+            <tr><td>Responsable</td><td>Quién mide, interpreta y propone acción.</td></tr>
+            <tr><td>Frecuencia</td><td>Diaria, semanal, quincenal o por evento crítico.</td></tr>
+            <tr><td>Método</td><td>Protocolo de muestreo, unidad de medición y evidencia requerida.</td></tr>
+            <tr><td>Rango objetivo</td><td>Meta por variedad, edad, lote y momento fenológico.</td></tr>
+            <tr><td>Umbrales</td><td>Condiciones para verde, amarillo, rojo y cerrado.</td></tr>
+            <tr><td>Acción</td><td>Corrección, mitigación, mantenimiento o actualización de forecast.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+
+      <section id="raci">
+        <span class="pill">Accountability</span>
+        <h2>10. Matriz RACI del sistema</h2>
+        <p>La matriz RACI define quién ejecuta, quién responde por el resultado, quién debe ser consultado y quién debe ser informado para cada componente del sistema técnico agrícola.</p>
+
+        <div class="highlight">
+          La RACI debe evitar dos riesgos: que las alertas no tengan dueño claro, y que decisiones técnicas críticas se diluyan entre demasiados participantes.
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Proceso / decisión</th>
+              <th>R · Responsable de ejecutar</th>
+              <th>A · Accountable / dueño final</th>
+              <th>C · Consultado</th>
+              <th>I · Informado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Definición de rangos objetivo por variedad, edad y lote</td>
+              <td>Jefe técnico / agrónomo de zona</td>
+              <td>Gerente Agrícola</td>
+              <td>Investigación, calidad, riego/nutrición</td>
+              <td>Gerencia General, operaciones agrícolas</td>
+            </tr>
+            <tr>
+              <td>Diseño del protocolo de muestreo</td>
+              <td>Equipo técnico agrícola</td>
+              <td>Gerente Agrícola</td>
+              <td>Data / BI, calidad, sanidad</td>
+              <td>Jefaturas de fundo</td>
+            </tr>
+            <tr>
+              <td>Registro de mediciones en campo</td>
+              <td>Técnicos de campo / evaluadores</td>
+              <td>Jefe de zona / jefe de fundo</td>
+              <td>Agrónomo responsable</td>
+              <td>Gerente Agrícola</td>
+            </tr>
+            <tr>
+              <td>Validación de datos críticos</td>
+              <td>Agrónomo responsable</td>
+              <td>Jefe técnico agrícola</td>
+              <td>Data / BI, sanidad, riego/nutrición</td>
+              <td>Gerente Agrícola</td>
+            </tr>
+            <tr>
+              <td>Activación de alerta amarilla</td>
+              <td>Agrónomo responsable</td>
+              <td>Jefe técnico agrícola</td>
+              <td>Sanidad, riego, nutrición, calidad</td>
+              <td>Gerente Agrícola</td>
+            </tr>
+            <tr>
+              <td>Activación de alerta roja</td>
+              <td>Jefe técnico agrícola</td>
+              <td>Gerente Agrícola</td>
+              <td>Jefe de fundo, sanidad, riego, nutrición, calidad</td>
+              <td>Gerencia General</td>
+            </tr>
+            <tr>
+              <td>Decisión de corrección técnica</td>
+              <td>Agrónomo / jefe técnico</td>
+              <td>Gerente Agrícola</td>
+              <td>Especialistas según variable crítica</td>
+              <td>Jefe de fundo, Gerencia General si impacta forecast</td>
+            </tr>
+            <tr>
+              <td>Cierre de evento crítico</td>
+              <td>Agrónomo responsable</td>
+              <td>Jefe técnico agrícola</td>
+              <td>Gerente Agrícola, Data / BI</td>
+              <td>Gerencia General</td>
+            </tr>
+            <tr>
+              <td>Actualización del forecast técnico</td>
+              <td>Data / BI + equipo agrícola</td>
+              <td>Gerente Agrícola</td>
+              <td>Calidad, comercial si corresponde, gerencia general</td>
+              <td>Comité de dirección</td>
+            </tr>
+            <tr>
+              <td>Reporte semanal de control predictivo</td>
+              <td>Jefe técnico agrícola</td>
+              <td>Gerente Agrícola</td>
+              <td>Data / BI, jefaturas de zona</td>
+              <td>Gerencia General, comité agrícola</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Reglas de uso de la RACI</h3>
+        <div class="grid grid-3">
+          <div class="card">
+            <h4>Una sola A</h4>
+            <p>Cada decisión crítica debe tener un único dueño final. Puede haber varios responsables de ejecución, pero solo un accountable.</p>
+          </div>
+          <div class="card">
+            <h4>Alerta sin dueño no existe</h4>
+            <p>Toda alerta amarilla o roja debe quedar asignada a una persona, con plazo y evidencia de cierre.</p>
+          </div>
+          <div class="card">
+            <h4>Cierre con efecto</h4>
+            <p>Todo evento cerrado debe indicar si valida el forecast o lo recalcula.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="output">
+        <span class="pill">Management Output</span>
+        <h2>11. Reporte esperado para Gerencia Agrícola</h2>
+        <div class="grid grid-3">
+          <div class="card"><h4>Vista ejecutiva</h4><p>Estado general por lote, variedad y etapa fenológica.</p></div>
+          <div class="card"><h4>Alertas críticas</h4><p>Variables fuera de rango, ventana de corrección y decisión requerida.</p></div>
+          <div class="card"><h4>Forecast técnico</h4><p>Kilos, calibre, exportabilidad y condición esperada actualizados por evento cerrado.</p></div>
+        </div>
+        <div class="highlight">
+          Regla final: cada dato agrícola debe confirmar, corregir o modificar el resultado esperado. Si no genera decisión, no pertenece al sistema.
+        </div>
+      </section>
+
+      <div class="footer">Sistema Técnico Agrícola de Control Predictivo · Manual de trabajo para Gerencia Agrícola</div>
+    </main>
+  </div>
+
+  <script>
+    const rules = {
+      brotes:{label:"Número de brotes por planta",low:100,high:160,lowText:"Brotación insuficiente para sostener el potencial objetivo.",highText:"Exceso de brotes; riesgo de sobrecarga, competencia y menor calibre.",okText:"Brotación dentro de rango referencial.",actionLow:"Revisar poda, uniformidad de brotación, riego, nutrición nitrogenada y condición radicular.",actionHigh:"Evaluar regulación de carga, manejo de vigor y seguimiento de yemas por brote.",impactLow:"Riesgo de menor número de yemas, flores y frutos.",impactHigh:"Riesgo de exceso de carga y presión negativa sobre calibre."},
+      yemas:{label:"Yemas por brote",low:3,high:8,lowText:"Potencial floral inferior al esperado.",highText:"Potencial floral alto; revisar riesgo de sobrecarga.",okText:"Acumulación de yemas alineada al objetivo.",actionLow:"Revisar vigor, nutrición, estrés hídrico y uniformidad de brotes.",actionHigh:"Actualizar proyección de carga y preparar monitoreo reforzado de floración.",impactLow:"Riesgo de menor floración y menor carga futura.",impactHigh:"Mayor potencial de flores y frutos; posible impacto en calibre."},
+      floracion:{label:"Floración acumulada (%)",low:40,high:80,lowText:"Floración retrasada o insuficiente para el momento evaluado.",highText:"Floración muy avanzada; posible concentración anticipada.",okText:"Floración dentro del avance esperado.",actionLow:"Revisar condición de yemas, clima, nutrición y estrés de planta.",actionHigh:"Actualizar calendario técnico, riesgo de concentración y seguimiento de cuaja.",impactLow:"Puede modificar ventana de cosecha y carga esperada.",impactHigh:"Puede adelantar o concentrar cosecha técnica."},
+      cuaja:{label:"Cuaja (%)",low:45,high:75,lowText:"Cuaja baja frente al objetivo.",highText:"Cuaja alta; riesgo de sobrecarga.",okText:"Cuaja dentro del rango esperado.",actionLow:"Actualizar forecast de frutos y revisar causas climáticas, nutricionales o sanitarias.",actionHigh:"Evaluar regulación de carga y efecto sobre calibre.",impactLow:"Reduce potencial de kilos; puede mejorar calibre si la carga queda equilibrada.",impactHigh:"Aumenta kilos potenciales pero eleva riesgo de menor calibre."},
+      calibre:{label:"Calibre promedio estimado (mm)",low:14,high:22,lowText:"Calibre por debajo del objetivo.",highText:"Calibre alto; validar si es consistente con carga y condición.",okText:"Calibre alineado al objetivo.",actionLow:"Revisar carga, riego, nutrición potásica, relación hoja/fruto y estrés térmico.",actionHigh:"Mantener monitoreo y validar condición, firmeza y madurez.",impactLow:"Reduce valor comercial y puede afectar mix de mercado.",impactHigh:"Confirma aporte positivo al resultado, sujeto a condición."},
+      firmeza:{label:"Firmeza estimada",low:70,high:100,lowText:"Firmeza comprometida o en riesgo.",highText:"Firmeza alta o adecuada.",okText:"Firmeza dentro de rango aceptable.",actionLow:"Revisar madurez, riego, calcio, temperatura, sanidad y oportunidad técnica de cosecha.",actionHigh:"Mantener monitoreo de madurez y condición.",impactLow:"Riesgo sobre condición, exportabilidad y vida postcosecha.",impactHigh:"Aporte positivo a condición y vida postcosecha."},
+      sanidad:{label:"Incidencia sanitaria (%)",low:0,high:5,lowText:"Presión sanitaria controlada.",highText:"Incidencia sanitaria supera umbral referencial.",okText:"Incidencia sanitaria dentro de rango.",actionLow:"Mantener monitoreo preventivo.",actionHigh:"Determinar severidad, velocidad de expansión, riesgo climático, carencias y plan de control.",impactLow:"Sin impacto material esperado si se mantiene estable.",impactHigh:"Riesgo sobre vigor, fruta, exportabilidad, condición y cosecha técnica."}
+    };
+    function evaluateDecision(){
+      const variable=document.getElementById("variable").value;
+      const val=parseFloat(document.getElementById("value").value);
+      const stage=document.getElementById("stage").value;
+      const r=rules[variable];
+      if(Number.isNaN(val)){alert("Ingresa un valor real.");return;}
+      let status="Verde",cls="green",interpretation=r.okText,impact="Confirma aporte al resultado esperado.",action="Mantener manejo y monitoreo.",windowText="Disponible para seguimiento preventivo.";
+      if(variable==="sanidad"){
+        if(val>r.high){status="Rojo · desviación crítica";cls="red";interpretation=r.highText;impact=r.impactHigh;action=r.actionHigh;windowText="Disponible, pero requiere intervención inmediata según severidad y cercanía a cosecha.";}
+        else{status="Verde";cls="green";interpretation=r.okText;impact=r.impactLow;action=r.actionLow;}
+      } else if(val<r.low){
+        status="Amarillo · desviación media";cls="yellow";interpretation=r.lowText;impact=r.impactLow;action=r.actionLow;windowText="Parcialmente disponible; validar si la etapa fenológica sigue abierta.";
+      } else if(val>r.high){
+        status="Rojo · desviación crítica";cls="red";interpretation=r.highText;impact=r.impactHigh;action=r.actionHigh;windowText="Disponible si la etapa no ha cerrado; si cerró, trasladar efecto al forecast.";
+      }
+      const badge=document.getElementById("statusBadge");
+      badge.className="status "+cls;
+      badge.textContent=status;
+      document.getElementById("decisionTitle").textContent=r.label+" · "+stage;
+      document.getElementById("interpretation").textContent=interpretation;
+      document.getElementById("impact").textContent=impact;
+      document.getElementById("action").textContent=action;
+      document.getElementById("window").textContent=windowText;
+      document.getElementById("decisionBox").style.display="block";
+    }
+  </script>
+</body>
+</html>
