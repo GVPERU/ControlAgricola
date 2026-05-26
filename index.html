@@ -3,582 +3,553 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manual del Sistema de Control Predictivo Agrícola</title>
+  <title>Sistema Técnico Agrícola de Control Predictivo</title>
   <style>
-    :root {
-      --olive: #556B2F;
-      --olive-dark: #3F4F22;
-      --light-green: #C6E0B4;
-      --light-green-soft: #EEF6E9;
-      --gray: #6B6B6B;
-      --gray-light: #F2F2F2;
-      --black: #111111;
-      --white: #FFFFFF;
-      --yellow: #FFF2CC;
-      --red: #F4CCCC;
-      --border: #D9D9D9;
+    :root{
+      --olive:#556B2F;
+      --olive-dark:#3f5120;
+      --green-light:#C6E0B4;
+      --green-soft:#EEF6E9;
+      --gray:#6B7280;
+      --gray-light:#F3F4F6;
+      --gray-border:#D1D5DB;
+      --black:#111827;
+      --white:#FFFFFF;
+      --yellow:#F6E8A8;
+      --red:#F3B0A7;
+      --bluegray:#E7ECEF;
     }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--black);
-      background: #FAFAFA;
-      line-height: 1.55;
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:"Inter","Segoe UI",Arial,sans-serif;
+      color:var(--black);
+      background:linear-gradient(180deg,#ffffff 0%,#f7f8f5 100%);
+      line-height:1.45;
     }
-
-    header {
-      background: linear-gradient(135deg, var(--olive-dark), var(--olive));
-      color: var(--white);
-      padding: 36px 24px 28px;
-      border-bottom: 8px solid var(--light-green);
+    header{
+      background:var(--olive-dark);
+      color:white;
+      padding:42px 7vw 36px;
+      border-bottom:8px solid var(--green-light);
     }
-
-    header .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 12px;
-      opacity: 0.9;
-      margin-bottom: 8px;
+    header .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:12px;
+      color:var(--green-light);
+      font-weight:700;
+      margin-bottom:12px;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 46px);
-      line-height: 1.1;
-      max-width: 1100px;
+    header h1{
+      margin:0;
+      max-width:1050px;
+      font-size:42px;
+      line-height:1.05;
+      font-weight:800;
     }
-
-    header p {
-      max-width: 980px;
-      margin: 16px 0 0;
-      font-size: 17px;
-      color: #F4F4F4;
+    header p{
+      max-width:920px;
+      font-size:18px;
+      color:#eef4ea;
+      margin:18px 0 0;
     }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 24px;
+    .layout{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:28px;
+      padding:28px 7vw 60px;
     }
-
-    nav {
-      position: sticky;
-      top: 18px;
-      align-self: start;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    nav{
+      position:sticky;
+      top:20px;
+      align-self:start;
+      background:white;
+      border:1px solid var(--gray-border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 8px 22px rgba(17,24,39,.06);
     }
-
-    nav h3 {
-      margin: 0 0 10px;
-      color: var(--olive-dark);
-      font-size: 15px;
+    nav h3{
+      margin:0 0 12px;
+      color:var(--olive-dark);
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
     }
-
-    nav a {
-      display: block;
-      color: var(--black);
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 14px;
+    nav a{
+      display:block;
+      color:var(--black);
+      text-decoration:none;
+      padding:9px 10px;
+      border-radius:10px;
+      font-size:14px;
     }
-
-    nav a:hover { background: var(--light-green-soft); color: var(--olive-dark); }
-
-    main { min-width: 0; }
-
-    section {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 22px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    nav a:hover{
+      background:var(--green-soft);
+      color:var(--olive-dark);
+      font-weight:700;
     }
-
-    h2 {
-      margin: 0 0 14px;
-      color: var(--olive-dark);
-      font-size: 26px;
-      line-height: 1.2;
+    section{
+      background:white;
+      border:1px solid var(--gray-border);
+      border-radius:22px;
+      padding:28px;
+      margin-bottom:24px;
+      box-shadow:0 10px 26px rgba(17,24,39,.05);
     }
-
-    h3 {
-      color: var(--olive);
-      margin-top: 22px;
-      margin-bottom: 8px;
+    h2{
+      margin:0 0 14px;
+      color:var(--olive-dark);
+      font-size:28px;
+      line-height:1.15;
     }
-
-    .highlight {
-      background: var(--light-green-soft);
-      border-left: 6px solid var(--olive);
-      padding: 14px 16px;
-      border-radius: 10px;
-      margin: 16px 0;
-      font-weight: 600;
+    h3{
+      color:var(--olive-dark);
+      margin-top:22px;
+      margin-bottom:10px;
+      font-size:19px;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
+    .lead{
+      font-size:17px;
+      color:#202733;
+      max-width:950px;
     }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      background: var(--white);
+    .highlight{
+      background:var(--green-soft);
+      border-left:6px solid var(--olive);
+      padding:16px 18px;
+      border-radius:14px;
+      font-weight:600;
+      margin:18px 0;
     }
-
-    .card h4 {
-      margin: 0 0 8px;
-      color: var(--olive-dark);
-      font-size: 16px;
+    .grid{display:grid;gap:16px;}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+    .card{
+      background:var(--gray-light);
+      border:1px solid #e2e5e8;
+      border-radius:18px;
+      padding:18px;
+      min-height:120px;
     }
-
-    .pill {
-      display: inline-block;
-      background: var(--light-green);
-      color: var(--olive-dark);
-      padding: 4px 9px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      margin: 2px 3px 2px 0;
+    .card h4{
+      margin:0 0 8px;
+      color:var(--olive-dark);
+      font-size:16px;
     }
-
-    .tree {
-      padding-left: 0;
-      list-style: none;
+    .card p,.card li{font-size:14px;color:#1f2937;}
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--green-light);
+      color:var(--olive-dark);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:10px;
     }
-
-    .tree li {
-      margin: 8px 0;
-      padding: 10px 12px;
-      border-left: 4px solid var(--light-green);
-      background: #FBFBFB;
-      border-radius: 8px;
+    .tree{display:grid;gap:14px;margin-top:18px;}
+    .tree-node{
+      border:1px solid var(--gray-border);
+      border-radius:18px;
+      padding:18px;
+      background:#fff;
     }
-
-    .tree ul { list-style: none; padding-left: 20px; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-      font-size: 14px;
+    .tree-node.primary{
+      background:var(--olive-dark);
+      color:white;
+      border-color:var(--olive-dark);
     }
-
-    th {
-      background: var(--olive-dark);
-      color: var(--white);
-      text-align: left;
-      padding: 10px;
+    .tree-node.primary h3{color:white;margin:0 0 8px;}
+    .tree-node.primary p{color:#edf4ea;}
+    .tree-branch{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
     }
-
-    td {
-      border: 1px solid var(--border);
-      padding: 10px;
-      vertical-align: top;
+    ul.clean{margin:8px 0 0;padding-left:18px;}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:14px;
+      font-size:14px;
+      overflow:hidden;
+      border-radius:14px;
     }
-
-    tr:nth-child(even) td { background: #FCFCFC; }
-
-    details {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin: 10px 0;
-      background: #FFFFFF;
+    th{
+      background:var(--olive-dark);
+      color:white;
+      text-align:left;
+      padding:11px;
+      font-weight:700;
     }
-
-    summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--olive-dark);
+    td{
+      border-bottom:1px solid var(--gray-border);
+      padding:11px;
+      vertical-align:top;
     }
-
-    .interactive-panel {
-      display: grid;
-      grid-template-columns: minmax(260px, 380px) 1fr;
-      gap: 18px;
+    tr:nth-child(even) td{background:#fafafa;}
+    .status{
+      display:inline-block;
+      padding:5px 9px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
     }
-
-    label {
-      display: block;
-      margin: 12px 0 5px;
-      font-weight: 700;
-      color: var(--olive-dark);
-      font-size: 14px;
+    .green{background:var(--green-light);color:var(--olive-dark);}
+    .yellow{background:var(--yellow);color:#725B00;}
+    .red{background:var(--red);color:#7F1D1D;}
+    .closed{background:var(--bluegray);color:#263238;}
+    .interactive{
+      background:linear-gradient(180deg,#ffffff 0%,#f0f6ed 100%);
+      border:2px solid var(--green-light);
     }
-
-    select, input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 14px;
-      background: var(--white);
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
     }
-
-    button {
-      margin-top: 14px;
-      width: 100%;
-      background: var(--olive-dark);
-      color: var(--white);
-      border: none;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
+    label{
+      display:block;
+      font-weight:700;
+      color:var(--olive-dark);
+      font-size:13px;
+      margin-bottom:6px;
     }
-
-    button:hover { background: var(--olive); }
-
-    .result-box {
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 18px;
-      min-height: 220px;
-      background: var(--gray-light);
+    input,select{
+      width:100%;
+      border:1px solid var(--gray-border);
+      border-radius:12px;
+      padding:11px;
+      font-size:14px;
+      background:white;
+      color:var(--black);
     }
-
-    .status {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      margin-bottom: 10px;
+    button{
+      border:0;
+      background:var(--olive-dark);
+      color:white;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      cursor:pointer;
+      margin-top:18px;
     }
-
-    .status-verde { background: var(--light-green); color: var(--olive-dark); }
-    .status-amarillo { background: var(--yellow); color: #7A5A00; }
-    .status-rojo { background: var(--red); color: #7A0000; }
-    .status-cerrado { background: #D9EAD3; color: var(--olive-dark); border: 1px solid var(--olive); }
-
-    .muted { color: var(--gray); font-size: 14px; }
-
-    code, pre {
-      background: #F5F5F5;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--black);
+    button:hover{background:var(--olive);}
+    #decisionBox{
+      margin-top:20px;
+      border:1px solid var(--gray-border);
+      background:white;
+      border-radius:18px;
+      padding:18px;
+      display:none;
     }
-
-    pre {
-      padding: 14px;
-      overflow-x: auto;
+    .result-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
     }
-
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: var(--gray);
-      font-size: 13px;
+    .small-note{
+      color:var(--gray);
+      font-size:13px;
+      margin-top:10px;
     }
-
-    @media (max-width: 920px) {
-      .layout { grid-template-columns: 1fr; padding: 16px; }
-      nav { position: static; }
-      .interactive-panel { grid-template-columns: 1fr; }
+    .footer{
+      color:var(--gray);
+      font-size:13px;
+      text-align:center;
+      padding:18px;
+    }
+    @media(max-width:1000px){
+      .layout{grid-template-columns:1fr;padding:20px;}
+      nav{position:relative;top:auto;}
+      .grid-2,.grid-3,.grid-4,.tree-branch,.form-grid{grid-template-columns:1fr;}
+      header{padding:34px 24px;}
+      header h1{font-size:32px;}
+    }
+    @media print{
+      nav,button{display:none;}
+      .layout{display:block;padding:0;}
+      section{box-shadow:none;break-inside:avoid;}
+      body{background:white;}
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="eyebrow">Gerencia Agrícola</div>
-    <h1>Manual del Sistema de Control Predictivo Agrícola</h1>
-    <p>Framework para anticipar desviaciones, mantener flexibilidad de corrección de rumbo y conectar cada variable agronómica con el resultado productivo y comercial esperado.</p>
+    <div class="eyebrow">Manual para Gerencia Agrícola</div>
+    <h1>Sistema Técnico Agrícola de Control Predictivo</h1>
+    <p>Framework para anticipar desviaciones, preservar flexibilidad de corrección y conectar cada variable agrícola con el resultado productivo y comercial esperado.</p>
   </header>
 
   <div class="layout">
     <nav>
       <h3>Contenido</h3>
       <a href="#proposito">1. Propósito</a>
-      <a href="#modelo">2. Modelo causal</a>
-      <a href="#arbol">3. Árbol de resultado</a>
-      <a href="#variables">4. Variables por etapa</a>
-      <a href="#estados">5. Estados operativos</a>
-      <a href="#interactivo">6. Evaluador interactivo</a>
+      <a href="#alcance">2. Alcance técnico</a>
+      <a href="#arbol">3. Árbol causal</a>
+      <a href="#etapas">4. Etapas agrícolas</a>
+      <a href="#sanidad">5. Sanidad y condición</a>
+      <a href="#interactivo">6. Motor interactivo</a>
       <a href="#cerrado">7. Estado cerrado</a>
-      <a href="#reporte">8. Reporte semanal</a>
-      <a href="#implementacion">9. Implementación</a>
+      <a href="#gobernanza">8. Gobernanza</a>
+      <a href="#output">9. Reporte esperado</a>
     </nav>
 
     <main>
       <section id="proposito">
+        <span class="pill">North Star</span>
         <h2>1. Propósito del sistema</h2>
-        <p>El propósito del sistema es <strong>maximizar la anticipación y la flexibilidad de corrección de rumbo</strong> para asegurar, con el mayor margen de acción posible, el cumplimiento del resultado productivo esperado.</p>
-        <div class="highlight">No se trata de registrar más datos. Se trata de convertir cada medición relevante en una señal de alerta, una interpretación agronómica y una decisión operativa.</div>
-        <div class="grid">
-          <div class="card"><h4>Qué busca anticipar</h4><p>Desviaciones que puedan afectar kilos, calibre, porcentaje exportable, condición y ventana de cosecha.</p></div>
-          <div class="card"><h4>Qué debe permitir</h4><p>Detectar riesgos antes de que el resultado quede definido y activar acciones correctivas oportunas.</p></div>
-          <div class="card"><h4>Qué no debe ser</h4><p>Una bitácora histórica sin consecuencia práctica ni conexión con el forecast productivo.</p></div>
+        <p class="lead">El propósito central es maximizar la anticipación y la flexibilidad de corrección de rumbo desde la poda hasta la última baya cosechada.</p>
+        <div class="highlight">
+          El sistema no busca registrar más datos. Busca convertir cada medición técnica agrícola en una lectura anticipada del resultado futuro y en una decisión concreta.
+        </div>
+        <div class="grid grid-4">
+          <div class="card"><h4>Anticipar</h4><p>Detectar señales tempranas antes de que el resultado quede definido.</p></div>
+          <div class="card"><h4>Interpretar</h4><p>Traducir cada variable en impacto probable sobre kilos, calibre, sanidad o condición.</p></div>
+          <div class="card"><h4>Corregir</h4><p>Activar decisiones mientras aún existe ventana agronómica de intervención.</p></div>
+          <div class="card"><h4>Actualizar</h4><p>Cuando una etapa se cierra, trasladar su efecto al forecast y a las variables siguientes.</p></div>
         </div>
       </section>
 
-      <section id="modelo">
-        <h2>2. Modelo causal de gestión</h2>
-        <p>El sistema debe partir desde el resultado final esperado y avanzar hacia atrás, identificando las variables que explican cada componente del resultado.</p>
+      <section id="alcance">
+        <span class="pill">Scope</span>
+        <h2>2. Alcance técnico agrícola</h2>
+        <p>Este sistema corresponde a la Gerencia Agrícola. Controla variables técnicas del cultivo, no variables operativas de cosecha, packing, frío o logística.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>Incluye</h4>
+            <ul class="clean">
+              <li>Poda, brotación, vigor y arquitectura de planta.</li>
+              <li>Yemas, floración, cuaja, carga y desarrollo de fruto.</li>
+              <li>Nutrición, riego, clima y sanidad.</li>
+              <li>Madurez, condición de fruta en planta y oportunidad técnica de cosecha.</li>
+              <li>Impacto técnico sobre kilos, calibre, exportabilidad y condición.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Excluye</h4>
+            <ul class="clean">
+              <li>Disponibilidad de mano de obra.</li>
+              <li>Productividad de cosecha.</li>
+              <li>Transporte interno, frío, packing y materiales.</li>
+              <li>Capacidad operativa y logística.</li>
+              <li>KPIs propios del sistema de control operativo.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight">
+          Este sistema no controla la operación de cosecha; controla la condición técnica agrícola que determina si la fruta llega a cosecha con el volumen, calibre, sanidad y condición esperados.
+        </div>
+      </section>
+
+      <section id="arbol">
+        <span class="pill">Causal Tree</span>
+        <h2>3. Árbol causal del resultado</h2>
+        <p>El modelo parte del resultado final esperado y trabaja hacia atrás hasta identificar las variables agrícolas que lo explican.</p>
+        <div class="tree">
+          <div class="tree-node primary">
+            <h3>Resultado final esperado</h3>
+            <p>Kilos exportables × calibre × condición × oportunidad técnica de cosecha.</p>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">
+              <h3>Kilos exportables</h3>
+              <ul class="clean">
+                <li>Kilos cosechados</li><li>% exportable</li><li>Descarte de campo</li><li>Sanidad de fruta</li><li>Condición fisiológica</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Calibre</h3>
+              <ul class="clean">
+                <li>Carga por planta</li><li>Relación hoja/fruto</li><li>Vigor vegetativo</li><li>Riego y nutrición</li><li>Temperatura y radiación</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Condición</h3>
+              <ul class="clean">
+                <li>Firmeza</li><li>Brix / acidez si aplica</li><li>Bloom</li><li>Deshidratación</li><li>Daño por sol, pudrición, partidura</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">
+              <h3>Número de frutos</h3>
+              <ul class="clean">
+                <li>Calidad de poda</li><li>Brotes útiles</li><li>Yemas fértiles</li><li>Flores por yema</li><li>Cuaja y aborto floral/frutal</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Vigor y soporte</h3>
+              <ul class="clean">
+                <li>Longitud de brote</li><li>Diámetro de brote</li><li>Área foliar estimada</li><li>Estado radicular</li><li>Equilibrio vegetativo/productivo</li>
+              </ul>
+            </div>
+            <div class="tree-node">
+              <h3>Riesgo agrícola</h3>
+              <ul class="clean">
+                <li>Presión sanitaria</li><li>Clima extremo</li><li>Estrés hídrico</li><li>Desequilibrio nutricional</li><li>Madurez desuniforme</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="etapas">
+        <span class="pill">Campaign Timeline</span>
+        <h2>4. Etapas agrícolas: desde poda hasta última baya cosechada</h2>
         <table>
-          <thead><tr><th>Resultado</th><th>Variables explicativas principales</th><th>Uso de gestión</th></tr></thead>
+          <thead><tr><th>Etapa</th><th>Variable crítica</th><th>Pregunta de control</th><th>Impacto hacia adelante</th></tr></thead>
           <tbody>
-            <tr><td>Kilos cosechados</td><td>Número de frutos, peso promedio, plantas productivas, uniformidad productiva</td><td>Forecast de producción y capacidad operativa</td></tr>
-            <tr><td>Kilos exportables</td><td>% exportable, descarte campo, descarte packing, sanidad, condición</td><td>Forecast comercial y retorno esperado</td></tr>
-            <tr><td>Calibre</td><td>Carga por planta, relación hoja/fruto, vigor, riego, nutrición, clima</td><td>Corrección de carga y manejo fisiológico</td></tr>
-            <tr><td>Condición</td><td>Firmeza, brix, materia seca, calcio, riego, temperatura, cosecha y postcosecha</td><td>Prevención de pérdida de valor en destino</td></tr>
-            <tr><td>Ventana de cosecha</td><td>Poda, brotación, floración, cuaja, concentración fenológica</td><td>Planificación laboral, logística y comercial</td></tr>
+            <tr><td>Poda</td><td>Oportunidad, intensidad y calidad de poda</td><td>¿La planta quedó estructurada para el potencial productivo objetivo?</td><td>Brotación, yemas, distribución de carga.</td></tr>
+            <tr><td>Brotación</td><td>Número, vigor y uniformidad de brotes</td><td>¿El número y calidad de brotes soporta el objetivo de fruta?</td><td>Yemas, flores, relación hoja/fruto, calibre.</td></tr>
+            <tr><td>Acumulación de yemas</td><td>Yemas por brote y por planta</td><td>¿El potencial floral confirma o modifica el plan?</td><td>Floración, carga potencial, forecast productivo.</td></tr>
+            <tr><td>Floración</td><td>Intensidad, duración y concentración</td><td>¿La floración confirma carga y ventana esperada?</td><td>Cuaja, concentración de cosecha, calibre.</td></tr>
+            <tr><td>Cuaja</td><td>% cuaja y aborto</td><td>¿La carga real se alinea al objetivo?</td><td>Kilos, calibre, necesidad de regulación.</td></tr>
+            <tr><td>Desarrollo de fruto</td><td>Crecimiento, calibre, firmeza y sanidad</td><td>¿El fruto está evolucionando hacia el estándar esperado?</td><td>Exportabilidad, condición y cosecha.</td></tr>
+            <tr><td>Madurez y cosecha técnica</td><td>Color, firmeza, brix, bloom y defectos de campo</td><td>¿La fruta está lista para cosecharse técnicamente?</td><td>Calidad final, descarte, condición y valor comercial.</td></tr>
           </tbody>
         </table>
       </section>
 
-      <section id="arbol">
-        <h2>3. Árbol de resultado ideal</h2>
-        <ul class="tree">
-          <li><strong>Resultado final esperado</strong>: kg/ha, kg/planta, calibre objetivo, % exportable, condición y ventana de cosecha.
-            <ul>
-              <li><strong>Kilos exportables</strong>: kilos cosechados × % exportable.</li>
-              <li><strong>Kilos cosechados</strong>: frutos/planta × peso promedio fruto × plantas productivas.</li>
-              <li><strong>Número de frutos</strong>: brotes útiles × yemas fértiles × flores × cuaja − aborto.</li>
-              <li><strong>Calibre</strong>: carga/planta + vigor + relación hoja/fruto + riego + nutrición + clima.</li>
-              <li><strong>Condición</strong>: firmeza + materia seca + sanidad + nutrición + manejo hídrico + oportunidad de cosecha.</li>
-            </ul>
-          </li>
-        </ul>
-        <div class="highlight">Cada variable temprana debe responder: ¿qué resultado futuro está anticipando y cuánto margen de corrección queda?</div>
-      </section>
-
-      <section id="variables">
-        <h2>4. Variables de control por etapa</h2>
-        <details open>
-          <summary>Etapa 1: Poda</summary>
-          <table><thead><tr><th>Variable</th><th>Cuándo</th><th>Qué anticipa</th><th>Acción posible</th></tr></thead><tbody>
-            <tr><td>Fecha de poda</td><td>Inicio de campaña</td><td>Uniformidad de brotación y calendario fenológico</td><td>Ajustar secuencia operativa y priorización de lotes</td></tr>
-            <tr><td>Calidad de poda</td><td>Durante y después de poda</td><td>Potencial de brotes, yemas y carga futura</td><td>Revisión de cuadrillas, repaso o corrección puntual</td></tr>
-          </tbody></table>
-        </details>
-        <details>
-          <summary>Etapa 2: Brotación</summary>
-          <table><thead><tr><th>Variable</th><th>Cuándo</th><th>Qué anticipa</th><th>Acción posible</th></tr></thead><tbody>
-            <tr><td>Número de brotes/planta</td><td>Semanal</td><td>Potencial de yemas, flores y frutos</td><td>Ajustar vigor, nutrición, riego y eventual regulación</td></tr>
-            <tr><td>Longitud y diámetro de brote</td><td>Semanal</td><td>Vigor real y capacidad de sostener carga</td><td>Corrección nutricional e hídrica</td></tr>
-          </tbody></table>
-        </details>
-        <details>
-          <summary>Etapa 3: Yemas y floración</summary>
-          <table><thead><tr><th>Variable</th><th>Cuándo</th><th>Qué anticipa</th><th>Acción posible</th></tr></thead><tbody>
-            <tr><td>Yemas por brote/planta</td><td>Quincenal</td><td>Potencial floral y carga futura</td><td>Actualizar forecast y revisar equilibrio vegetativo</td></tr>
-            <tr><td>Pico de floración</td><td>Semanal</td><td>Cuaja, concentración de cosecha y planificación operativa</td><td>Ajustar monitoreo de cuaja y forecast de cosecha</td></tr>
-          </tbody></table>
-        </details>
-        <details>
-          <summary>Etapa 4: Cuaja y carga</summary>
-          <table><thead><tr><th>Variable</th><th>Cuándo</th><th>Qué anticipa</th><th>Acción posible</th></tr></thead><tbody>
-            <tr><td>Frutos/planta</td><td>Semanal</td><td>Kilos potenciales y riesgo de calibre</td><td>Regular carga, revisar riego y nutrición</td></tr>
-            <tr><td>Relación hoja/fruto</td><td>Quincenal</td><td>Capacidad fisiológica para sostener calibre y condición</td><td>Revisar balance vegetativo/productivo</td></tr>
-          </tbody></table>
-        </details>
-      </section>
-
-      <section id="estados">
-        <h2>5. Estados operativos</h2>
-        <div class="grid">
-          <div class="card"><span class="status status-verde">Verde</span><h4>Dentro de rango</h4><p>Mantener manejo y monitoreo. Confirma el supuesto esperado.</p></div>
-          <div class="card"><span class="status status-amarillo">Amarillo</span><h4>Desviación corregible</h4><p>Ajustar manejo y observar respuesta en el siguiente corte de medición.</p></div>
-          <div class="card"><span class="status status-rojo">Rojo</span><h4>Desviación crítica</h4><p>Activar intervención inmediata si aún existe ventana de corrección.</p></div>
-          <div class="card"><span class="status status-cerrado">Cerrado</span><h4>Evento ya definido</h4><p>No se corrige directamente. Se traslada su efecto al forecast y a las variables siguientes.</p></div>
+      <section id="sanidad">
+        <span class="pill">Technical Risk</span>
+        <h2>5. Sanidad y condición agrícola</h2>
+        <p>La sanidad debe estar integrada en el árbol causal, no tratada como un bloque separado. Afecta vigor, cuaja, desarrollo de fruta, exportabilidad, condición y vida postcosecha.</p>
+        <div class="grid grid-3">
+          <div class="card"><h4>Presión sanitaria</h4><ul class="clean"><li>Plagas y enfermedades.</li><li>Incidencia y severidad.</li><li>Velocidad de expansión.</li><li>Riesgo por clima.</li><li>Efectividad de control.</li></ul></div>
+          <div class="card"><h4>Condición de fruta en planta</h4><ul class="clean"><li>Firmeza.</li><li>Bloom.</li><li>Deshidratación.</li><li>Daño por sol.</li><li>Pudrición, cicatrices y partidura.</li></ul></div>
+          <div class="card"><h4>Madurez técnica</h4><ul class="clean"><li>Color.</li><li>Brix.</li><li>Acidez si aplica.</li><li>Uniformidad de madurez.</li><li>Oportunidad técnica de cosecha.</li></ul></div>
         </div>
+        <h3>Variables sanitarias mínimas</h3>
+        <table>
+          <thead><tr><th>Variable</th><th>Cómo se interpreta</th><th>Decisión esperada</th></tr></thead>
+          <tbody>
+            <tr><td>Incidencia</td><td>Qué proporción del lote presenta el problema.</td><td>Determina amplitud de intervención.</td></tr>
+            <tr><td>Severidad</td><td>Qué tan intenso es el daño en plantas o fruta afectada.</td><td>Determina urgencia y criticidad.</td></tr>
+            <tr><td>Velocidad de expansión</td><td>Si el problema está estable, creciendo o acelerando.</td><td>Define si se escala la alerta.</td></tr>
+            <tr><td>Riesgo climático</td><td>Condiciones que favorecen presión sanitaria.</td><td>Activa prevención antes del daño visible.</td></tr>
+            <tr><td>Carencias / residuos</td><td>Compatibilidad de aplicaciones con cosecha.</td><td>Evita afectar cosecha técnica y exportabilidad.</td></tr>
+          </tbody>
+        </table>
       </section>
 
-      <section id="interactivo">
-        <h2>6. Evaluador interactivo</h2>
-        <p>Este módulo muestra la lógica que debería tener el sistema. Al ingresar un valor crítico, debe devolver diagnóstico, impacto, ventana de corrección, acción recomendada y efecto hacia adelante.</p>
-        <div class="interactive-panel">
-          <div class="card">
-            <label for="variable">Variable medida</label>
-            <select id="variable">
-              <option value="brotes">Número de brotes por planta</option>
-              <option value="floracion">Pico de floración</option>
-              <option value="frutos">Frutos por planta</option>
-              <option value="calibre">Calibre proyectado</option>
-            </select>
-            <label for="valor">Valor real</label>
-            <input id="valor" type="number" placeholder="Ingrese valor" />
-            <label for="etapa">Etapa</label>
-            <select id="etapa">
-              <option value="activa">Etapa activa / con ventana de corrección</option>
-              <option value="cerrada">Etapa cerrada / evento ya definido</option>
-            </select>
-            <button onclick="evaluar()">Evaluar variable</button>
-            <p class="muted">Rangos referenciales para demo. Deben ajustarse por variedad, edad, zona, vigor y objetivo comercial.</p>
-          </div>
-          <div class="result-box" id="resultado">
-            <span class="status status-verde">Esperando input</span>
-            <p>Ingrese una variable y un valor para obtener la lectura operativa.</p>
-          </div>
+      <section id="interactivo" class="interactive">
+        <span class="pill">Decision Engine</span>
+        <h2>6. Motor interactivo de decisión</h2>
+        <p>Ejemplo funcional: el agrónomo ingresa una variable, valor real y etapa. El sistema clasifica el estado, interpreta el efecto y recomienda acción.</p>
+        <div class="form-grid">
+          <div><label for="variable">Variable medida</label><select id="variable"><option value="brotes">Número de brotes por planta</option><option value="yemas">Yemas por brote</option><option value="floracion">Floración acumulada (%)</option><option value="cuaja">Cuaja (%)</option><option value="calibre">Calibre promedio estimado (mm)</option><option value="firmeza">Firmeza estimada</option><option value="sanidad">Incidencia sanitaria (%)</option></select></div>
+          <div><label for="value">Valor real</label><input id="value" type="number" placeholder="Ingresar valor" /></div>
+          <div><label for="stage">Etapa</label><select id="stage"><option>Poda</option><option>Brotación</option><option>Yemas</option><option>Floración</option><option>Cuaja</option><option>Desarrollo de fruto</option><option>Madurez / cosecha técnica</option></select></div>
+        </div>
+        <button onclick="evaluateDecision()">Evaluar variable</button>
+        <div id="decisionBox">
+          <div class="result-title"><span id="statusBadge" class="status green">Verde</span><h3 id="decisionTitle" style="margin:0;">Resultado</h3></div>
+          <p><strong>Interpretación:</strong> <span id="interpretation"></span></p>
+          <p><strong>Impacto probable:</strong> <span id="impact"></span></p>
+          <p><strong>Acción recomendada:</strong> <span id="action"></span></p>
+          <p><strong>Ventana de corrección:</strong> <span id="window"></span></p>
+          <p class="small-note">Nota: los rangos son referenciales. La Gerencia Agrícola debe calibrarlos por variedad, edad, lote y objetivo comercial.</p>
         </div>
       </section>
 
       <section id="cerrado">
-        <h2>7. Regla del estado cerrado</h2>
-        <p>El estado cerrado no significa que el dato deja de importar. Significa que la ventana de acción directa sobre esa variable terminó. Desde ese momento, el sistema debe trasladar el efecto observado hacia adelante en la cadena causal.</p>
-        <div class="highlight">Cuando una variable se cierra, debe indicar si confirma el resultado, modifica el resultado o confirma su aporte sin requerir acción posterior.</div>
+        <span class="pill">Closed Loop</span>
+        <h2>7. Lógica del estado cerrado</h2>
+        <p>“Cerrado” no significa que el dato se ignora. Significa que el evento crítico ya ocurrió, su ventana de intervención directa terminó y su efecto debe propagarse hacia adelante.</p>
+        <div class="grid grid-3">
+          <div class="card"><h4>Cerrado confirmado</h4><p>El evento ocurrió dentro de lo esperado y confirma el supuesto productivo.</p><span class="status closed">Actualiza forecast</span></div>
+          <div class="card"><h4>Cerrado modificador</h4><p>El evento ocurrió, pero cambia el resultado esperado o el riesgo hacia adelante.</p><span class="status red">Modifica forecast</span></div>
+          <div class="card"><h4>Cerrado sin acción</h4><p>El evento ocurrió, no genera desviación y no requiere acción posterior.</p><span class="status green">Continúa monitoreo</span></div>
+        </div>
+        <h3>Preguntas obligatorias al cerrar una variable</h3>
         <table>
-          <thead><tr><th>Tipo de cierre</th><th>Significado</th><th>Efecto en cadena</th></tr></thead>
+          <thead><tr><th>Pregunta</th><th>Decisión que genera</th></tr></thead>
           <tbody>
-            <tr><td>Cerrado confirmado</td><td>El evento ocurrió como se esperaba</td><td>Confirma el supuesto y fortalece el forecast vigente</td></tr>
-            <tr><td>Cerrado modificador</td><td>El evento ocurrió fuera de rango o fuera de momento</td><td>Actualiza forecast y cambia foco de monitoreo hacia variables dependientes</td></tr>
-            <tr><td>Cerrado sin acción</td><td>El evento ocurrió y no requiere gestión posterior</td><td>Se registra como dato confirmado y continúa el monitoreo siguiente</td></tr>
-          </tbody>
-        </table>
-        <pre><code>Ejemplo:
-Pico de floración cerrado con intensidad menor a objetivo
-→ no se corrige la floración directamente
-→ se reduce potencial de frutos
-→ se ajusta forecast de kilos
-→ se intensifica monitoreo de cuaja
-→ se revisa impacto probable en ventana de cosecha</code></pre>
-      </section>
-
-      <section id="reporte">
-        <h2>8. Output semanal esperado</h2>
-        <table>
-          <thead><tr><th>Bloque</th><th>Contenido mínimo</th></tr></thead>
-          <tbody>
-            <tr><td>Resumen ejecutivo</td><td>Estado general por lote, principales alertas, riesgos futuros y decisiones requeridas.</td></tr>
-            <tr><td>Variables críticas</td><td>Valor real, rango objetivo, desviación, tendencia, estado y acción recomendada.</td></tr>
-            <tr><td>Forecast actualizado</td><td>Kilos estimados, calibre estimado, % exportable y riesgo de desviación.</td></tr>
-            <tr><td>Alertas cerradas</td><td>Efecto confirmado, modificación de resultado y variables siguientes impactadas.</td></tr>
-            <tr><td>Acciones</td><td>Responsable, plazo, evidencia requerida y fecha de revisión.</td></tr>
+            <tr><td>¿Ocurrió el evento crítico?</td><td>Confirma que la etapa debe cerrarse.</td></tr>
+            <tr><td>¿Ocurrió en el momento esperado?</td><td>Ajusta calendario técnico y forecast.</td></tr>
+            <tr><td>¿Ocurrió con la intensidad esperada?</td><td>Confirma o modifica kilos, calibre o condición.</td></tr>
+            <tr><td>¿Qué variable siguiente queda afectada?</td><td>Traslada el efecto en la cadena causal.</td></tr>
+            <tr><td>¿Existe acción indirecta posterior?</td><td>Define mitigación, monitoreo reforzado o solo registro.</td></tr>
           </tbody>
         </table>
       </section>
 
-      <section id="implementacion">
-        <h2>9. Requisitos de implementación</h2>
-        <div class="grid">
-          <div class="card"><h4>Por variable</h4><p>Responsable, frecuencia, unidad de medida, método, muestra mínima, rango objetivo y umbrales.</p></div>
-          <div class="card"><h4>Por alerta</h4><p>Diagnóstico, impacto, acción, plazo, evidencia de cierre y forecast actualizado.</p></div>
-          <div class="card"><h4>Por campaña</h4><p>Aprendizajes, correlaciones entre variables tempranas y resultado final, ajustes de rangos para la siguiente campaña.</p></div>
+      <section id="gobernanza">
+        <span class="pill">Operating Model</span>
+        <h2>8. Gobernanza del sistema</h2>
+        <p>Para que el sistema funcione, cada variable debe tener dueño, método, frecuencia, umbral y acción asociada.</p>
+        <table>
+          <thead><tr><th>Elemento</th><th>Definición requerida</th></tr></thead>
+          <tbody>
+            <tr><td>Responsable</td><td>Quién mide, interpreta y propone acción.</td></tr>
+            <tr><td>Frecuencia</td><td>Diaria, semanal, quincenal o por evento crítico.</td></tr>
+            <tr><td>Método</td><td>Protocolo de muestreo, unidad de medición y evidencia requerida.</td></tr>
+            <tr><td>Rango objetivo</td><td>Meta por variedad, edad, lote y momento fenológico.</td></tr>
+            <tr><td>Umbrales</td><td>Condiciones para verde, amarillo, rojo y cerrado.</td></tr>
+            <tr><td>Acción</td><td>Corrección, mitigación, mantenimiento o actualización de forecast.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="output">
+        <span class="pill">Management Output</span>
+        <h2>9. Reporte esperado para Gerencia Agrícola</h2>
+        <div class="grid grid-3">
+          <div class="card"><h4>Vista ejecutiva</h4><p>Estado general por lote, variedad y etapa fenológica.</p></div>
+          <div class="card"><h4>Alertas críticas</h4><p>Variables fuera de rango, ventana de corrección y decisión requerida.</p></div>
+          <div class="card"><h4>Forecast técnico</h4><p>Kilos, calibre, exportabilidad y condición esperada actualizados por evento cerrado.</p></div>
+        </div>
+        <div class="highlight">
+          Regla final: cada dato agrícola debe confirmar, corregir o modificar el resultado esperado. Si no genera decisión, no pertenece al sistema.
         </div>
       </section>
+
+      <div class="footer">Sistema Técnico Agrícola de Control Predictivo · Manual de trabajo para Gerencia Agrícola</div>
     </main>
   </div>
 
-  <footer>
-    Manual de uso interno · Sistema de Control Predictivo Agrícola · Gerencia Agrícola
-  </footer>
-
   <script>
-    const reglas = {
-      brotes: {
-        nombre: "Número de brotes por planta",
-        min: 120,
-        max: 150,
-        bajo: "Bajo potencial de yemas, flores y frutos. Riesgo de menor producción.",
-        alto: "Exceso de brotes. Riesgo de sobrecarga, competencia interna y menor calibre.",
-        accionBajo: "Revisar poda, riego, nutrición nitrogenada, vigor y condición radicular.",
-        accionAlto: "Evaluar regulación de brotes, ajuste de vigor y planificación de raleo si corresponde.",
-        impacto: "Afecta directamente el potencial de yemas, flores, frutos y kilos cosechados."
-      },
-      floracion: {
-        nombre: "Pico de floración",
-        min: 80,
-        max: 100,
-        bajo: "Floración menor o más débil que el objetivo. Riesgo de menor cuaja y menor carga.",
-        alto: "Floración muy alta o concentrada. Riesgo de sobrecarga y presión sobre calibre.",
-        accionBajo: "Actualizar forecast de frutos y reforzar monitoreo de cuaja.",
-        accionAlto: "Preparar decisión de regulación de carga y seguimiento de cuaja efectiva.",
-        impacto: "Afecta número potencial de frutos, concentración de cosecha y eficiencia operativa."
-      },
-      frutos: {
-        nombre: "Frutos por planta",
-        min: 700,
-        max: 1000,
-        bajo: "Carga inferior al objetivo. Riesgo de menor producción final.",
-        alto: "Carga superior al objetivo. Riesgo de menor calibre y condición.",
-        accionBajo: "Actualizar forecast de kilos y revisar si el peso promedio puede compensar parcialmente.",
-        accionAlto: "Evaluar regulación de carga, manejo hídrico y nutricional orientado a calibre.",
-        impacto: "Define producción potencial y condiciona calibre, firmeza y cosecha."
-      },
-      calibre: {
-        nombre: "Calibre proyectado",
-        min: 18,
-        max: 24,
-        bajo: "Calibre proyectado bajo el objetivo comercial. Riesgo de pérdida de valor.",
-        alto: "Calibre sobre objetivo. Confirmación positiva, salvo que comprometa condición o uniformidad.",
-        accionBajo: "Revisar carga, riego, nutrición, vigor y oportunidad de cosecha.",
-        accionAlto: "Mantener monitoreo de condición, firmeza y uniformidad.",
-        impacto: "Afecta directamente retorno comercial, distribución por mercado y valor final."
-      }
+    const rules = {
+      brotes:{label:"Número de brotes por planta",low:100,high:160,lowText:"Brotación insuficiente para sostener el potencial objetivo.",highText:"Exceso de brotes; riesgo de sobrecarga, competencia y menor calibre.",okText:"Brotación dentro de rango referencial.",actionLow:"Revisar poda, uniformidad de brotación, riego, nutrición nitrogenada y condición radicular.",actionHigh:"Evaluar regulación de carga, manejo de vigor y seguimiento de yemas por brote.",impactLow:"Riesgo de menor número de yemas, flores y frutos.",impactHigh:"Riesgo de exceso de carga y presión negativa sobre calibre."},
+      yemas:{label:"Yemas por brote",low:3,high:8,lowText:"Potencial floral inferior al esperado.",highText:"Potencial floral alto; revisar riesgo de sobrecarga.",okText:"Acumulación de yemas alineada al objetivo.",actionLow:"Revisar vigor, nutrición, estrés hídrico y uniformidad de brotes.",actionHigh:"Actualizar proyección de carga y preparar monitoreo reforzado de floración.",impactLow:"Riesgo de menor floración y menor carga futura.",impactHigh:"Mayor potencial de flores y frutos; posible impacto en calibre."},
+      floracion:{label:"Floración acumulada (%)",low:40,high:80,lowText:"Floración retrasada o insuficiente para el momento evaluado.",highText:"Floración muy avanzada; posible concentración anticipada.",okText:"Floración dentro del avance esperado.",actionLow:"Revisar condición de yemas, clima, nutrición y estrés de planta.",actionHigh:"Actualizar calendario técnico, riesgo de concentración y seguimiento de cuaja.",impactLow:"Puede modificar ventana de cosecha y carga esperada.",impactHigh:"Puede adelantar o concentrar cosecha técnica."},
+      cuaja:{label:"Cuaja (%)",low:45,high:75,lowText:"Cuaja baja frente al objetivo.",highText:"Cuaja alta; riesgo de sobrecarga.",okText:"Cuaja dentro del rango esperado.",actionLow:"Actualizar forecast de frutos y revisar causas climáticas, nutricionales o sanitarias.",actionHigh:"Evaluar regulación de carga y efecto sobre calibre.",impactLow:"Reduce potencial de kilos; puede mejorar calibre si la carga queda equilibrada.",impactHigh:"Aumenta kilos potenciales pero eleva riesgo de menor calibre."},
+      calibre:{label:"Calibre promedio estimado (mm)",low:14,high:22,lowText:"Calibre por debajo del objetivo.",highText:"Calibre alto; validar si es consistente con carga y condición.",okText:"Calibre alineado al objetivo.",actionLow:"Revisar carga, riego, nutrición potásica, relación hoja/fruto y estrés térmico.",actionHigh:"Mantener monitoreo y validar condición, firmeza y madurez.",impactLow:"Reduce valor comercial y puede afectar mix de mercado.",impactHigh:"Confirma aporte positivo al resultado, sujeto a condición."},
+      firmeza:{label:"Firmeza estimada",low:70,high:100,lowText:"Firmeza comprometida o en riesgo.",highText:"Firmeza alta o adecuada.",okText:"Firmeza dentro de rango aceptable.",actionLow:"Revisar madurez, riego, calcio, temperatura, sanidad y oportunidad técnica de cosecha.",actionHigh:"Mantener monitoreo de madurez y condición.",impactLow:"Riesgo sobre condición, exportabilidad y vida postcosecha.",impactHigh:"Aporte positivo a condición y vida postcosecha."},
+      sanidad:{label:"Incidencia sanitaria (%)",low:0,high:5,lowText:"Presión sanitaria controlada.",highText:"Incidencia sanitaria supera umbral referencial.",okText:"Incidencia sanitaria dentro de rango.",actionLow:"Mantener monitoreo preventivo.",actionHigh:"Determinar severidad, velocidad de expansión, riesgo climático, carencias y plan de control.",impactLow:"Sin impacto material esperado si se mantiene estable.",impactHigh:"Riesgo sobre vigor, fruta, exportabilidad, condición y cosecha técnica."}
     };
-
-    function evaluar() {
-      const variable = document.getElementById("variable").value;
-      const valor = Number(document.getElementById("valor").value);
-      const etapa = document.getElementById("etapa").value;
-      const r = reglas[variable];
-      const box = document.getElementById("resultado");
-
-      if (!valor && valor !== 0) {
-        box.innerHTML = '<span class="status status-amarillo">Dato incompleto</span><p>Ingrese un valor numérico para evaluar.</p>';
-        return;
+    function evaluateDecision(){
+      const variable=document.getElementById("variable").value;
+      const val=parseFloat(document.getElementById("value").value);
+      const stage=document.getElementById("stage").value;
+      const r=rules[variable];
+      if(Number.isNaN(val)){alert("Ingresa un valor real.");return;}
+      let status="Verde",cls="green",interpretation=r.okText,impact="Confirma aporte al resultado esperado.",action="Mantener manejo y monitoreo.",windowText="Disponible para seguimiento preventivo.";
+      if(variable==="sanidad"){
+        if(val>r.high){status="Rojo";cls="red";interpretation=r.highText;impact=r.impactHigh;action=r.actionHigh;windowText="Disponible, pero requiere intervención inmediata según severidad y cercanía a cosecha.";}
+        else{status="Verde";cls="green";interpretation=r.okText;impact=r.impactLow;action=r.actionLow;}
+      } else if(val<r.low){
+        status="Amarillo";cls="yellow";interpretation=r.lowText;impact=r.impactLow;action=r.actionLow;windowText="Parcialmente disponible; validar si la etapa fenológica sigue abierta.";
+      } else if(val>r.high){
+        status="Rojo";cls="red";interpretation=r.highText;impact=r.impactHigh;action=r.actionHigh;windowText="Disponible si la etapa no ha cerrado; si cerró, trasladar efecto al forecast.";
       }
-
-      let estado = "verde";
-      let titulo = "Verde";
-      let diagnostico = "Variable dentro del rango esperado.";
-      let accion = "Mantener manejo y continuar monitoreo.";
-      let efecto = "Confirma el supuesto vigente del forecast.";
-
-      if (valor < r.min) {
-        estado = "amarillo";
-        titulo = "Amarillo";
-        diagnostico = r.bajo;
-        accion = r.accionBajo;
-        efecto = "Modifica o presiona negativamente el resultado esperado si no se corrige.";
-      }
-
-      if (valor > r.max) {
-        estado = "rojo";
-        titulo = "Rojo";
-        diagnostico = r.alto;
-        accion = r.accionAlto;
-        efecto = "Activa riesgo crítico sobre una o más variables dependientes.";
-      }
-
-      if (etapa === "cerrada") {
-        estado = "cerrado";
-        titulo = valor >= r.min && valor <= r.max ? "Cerrado confirmado" : "Cerrado modificador";
-        accion = valor >= r.min && valor <= r.max
-          ? "No requiere acción directa posterior. Registrar como supuesto confirmado y continuar monitoreo de la siguiente etapa."
-          : "No hay acción directa sobre esta variable. Actualizar forecast y trasladar el impacto a las variables siguientes.";
-        efecto = valor >= r.min && valor <= r.max
-          ? "Confirma el aporte de esta variable al resultado esperado."
-          : "Modifica el resultado esperado hacia adelante y debe reflejarse en el árbol causal.";
-      }
-
-      box.innerHTML = `
-        <span class="status status-${estado}">${titulo}</span>
-        <h3>${r.nombre}</h3>
-        <p><strong>Valor real:</strong> ${valor}</p>
-        <p><strong>Rango referencial:</strong> ${r.min} – ${r.max}</p>
-        <p><strong>Diagnóstico:</strong> ${diagnostico}</p>
-        <p><strong>Impacto:</strong> ${r.impacto}</p>
-        <p><strong>Efecto en cadena:</strong> ${efecto}</p>
-        <p><strong>Acción recomendada:</strong> ${accion}</p>
-      `;
+      const badge=document.getElementById("statusBadge");
+      badge.className="status "+cls;
+      badge.textContent=status;
+      document.getElementById("decisionTitle").textContent=r.label+" · "+stage;
+      document.getElementById("interpretation").textContent=interpretation;
+      document.getElementById("impact").textContent=impact;
+      document.getElementById("action").textContent=action;
+      document.getElementById("window").textContent=windowText;
+      document.getElementById("decisionBox").style.display="block";
     }
   </script>
 </body>
